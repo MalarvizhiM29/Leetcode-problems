@@ -1,0 +1,546 @@
+1) Maximum subarray
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int maxsubarray(int arr[],int n){
+        int maxsum=arr[0];
+        int result=arr[0];
+        for(int i=1;i<n;i++){
+            maxsum=Math.max(arr[i],arr[i]+maxsum);
+            result=Math.max(result,maxsum);
+        }
+        return result;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(maxsubarray(arr,n));
+    }
+}
+
+Example 1:
+
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+Example 2:
+
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+Example 3:
+
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) Circular sum subarray
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int maxsubarray(int arr[],int n){
+        int maxsum=arr[0];
+        int result=arr[0];
+        for(int i=1;i<n;i++){
+            maxsum=Math.max(arr[i],arr[i]+maxsum);
+            result=Math.max(result,maxsum);
+        }
+        return result;
+    }
+
+    public static int circularmaxsubarray(int arr[],int n){
+        int normalsum=maxsubarray(arr,n);
+        if(normalsum>0){
+            return normalsum;
+        }
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            arr[i]=-arr[i];
+        }
+        int circularsum=sum+maxsubarray(arr,n);
+        int result=Math.max(circularsum,normalsum);
+        return result;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(circularmaxsubarray(arr,n));
+    }
+}
+
+Example 1:
+
+Input: nums = [1,-2,3,-2]
+Output: 3
+Explanation: Subarray [3] has maximum sum 3.
+Example 2:
+
+Input: nums = [5,-3,5]
+Output: 10
+Explanation: Subarray [5,5] has maximum sum 5 + 5 = 10.
+Example 3:
+
+Input: nums = [-3,-2,-3]
+Output: -2
+Explanation: Subarray [-2] has maximum sum -2.
+
+
+
+
+
+
+
+
+
+
+3)Maximum product subarray
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int prosubarray(int arr[],int n){
+        int maxpro=arr[0];
+        int minpro=arr[0];
+        int result=arr[0];
+        for(int i=1;i<n;i++){
+            int way1=maxpro*arr[i];
+            int way2=minpro*arr[i];
+            maxpro=Math.max(arr[i],Math.max(way1,way2));
+            minpro=Math.min(arr[i],Math.min(way1,way2));
+            result=Math.max(result,maxpro);
+        }
+        return result;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(prosubarray(arr,n));
+    }
+}
+
+Example 1:
+
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+Example 2:
+
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4)Move zeros
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static void movezeros(int arr[],int n){
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]!=0){
+                int temp=arr[i];
+                arr[i]=arr[count];
+                arr[count]=temp;
+                count++;
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        movezeros(arr,n);
+        for(int i:arr){
+            System.out.println(i);
+        }
+    }
+}
+
+
+Example 1:
+
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
+Example 2:
+
+Input: nums = [0]
+Output: [0]
+
+
+
+
+
+
+
+
+
+
+
+5)Palindrome or not
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int palindrome(int n){
+        int temp=n;
+        int rev=0;
+        if(n<0){
+            return 0;
+        }
+        while(n>0){
+            rev=(rev*10)+(n%10);
+            n/=10;
+        }
+        if(temp==rev){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        System.out.println(palindrome(n));
+    }
+}
+
+
+Example 1:
+
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+Example 2:
+
+Input: x = -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+
+Input: x = 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+
+
+
+
+
+
+
+
+
+6) Array partition
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int solve(int arr[],int n){
+        Arrays.sort(arr);
+        int sum=0;
+        for(int i=0;i<n;i+=2){
+            sum+=arr[i];
+        }
+        return sum;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(solve(arr,n));
+    }
+}
+
+
+Example 1:
+
+Input: nums = [1,4,3,2]
+Output: 4
+Explanation: All possible pairings (ignoring the ordering of elements) are:
+1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+So the maximum possible sum is 4.
+Example 2:
+
+Input: nums = [6,2,6,5,1,2]
+Output: 9
+Explanation: The optimal pairing is (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5) + min(6, 6) = 1 + 2 + 6 = 9.
+
+
+
+
+
+
+
+
+
+
+7) Maximum icecream bar with cost
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int solve(int arr[],int n,int coin){
+        Arrays.sort(arr);
+        int count=0;
+        int i=0;
+        while(i<n && coin>=arr[i]){
+            coin-=arr[i];
+            count++;
+            i++;
+        }
+        return count;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int coin=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(solve(arr,n,coin));
+    }
+}
+
+Example 1:
+
+Input: costs = [1,3,2,4,1], coins = 7
+Output: 4
+Explanation: The boy can buy ice cream bars at indices 0,1,2,4 for a total price of 1 + 3 + 2 + 1 = 7.
+Example 2:
+
+Input: costs = [10,6,8,7,7,8], coins = 5
+Output: 0
+Explanation: The boy cannot afford any of the ice cream bars.
+Example 3:
+
+Input: costs = [1,6,3,1,2,5], coins = 20
+Output: 6
+Explanation: The boy can buy all the ice cream bars for a total price of 1 + 6 + 3 + 1 + 2 + 5 = 18.
+
+
+
+
+
+
+
+
+
+
+
+8) Minimum Cost of Buying Candies With Discount
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int solve(int[] cost){
+        Arrays.sort(cost);
+        int count=0;
+        int sum=0;
+        for(int i= cost.length-1;i>=0;i--){
+            if(count==2){
+                count=0;
+            }
+            else{
+                sum+=cost[i];
+                count++;
+            }
+        }
+        return sum;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int cost[]=new int[n];
+        for(int i=0;i<n;i++){
+            cost[i]=sc.nextInt();
+        }
+        System.out.println(solve(cost));
+    }
+}
+
+Example 1:
+
+Input: cost = [1,2,3]
+Output: 5
+Explanation: We buy the candies with costs 2 and 3, and take the candy with cost 1 for free.
+The total cost of buying all candies is 2 + 3 = 5. This is the only way we can buy the candies.
+Note that we cannot buy candies with costs 1 and 3, and then take the candy with cost 2 for free.
+The cost of the free candy has to be less than or equal to the minimum cost of the purchased candies.
+Example 2:
+
+Input: cost = [6,5,7,9,2,2]
+Output: 23
+Explanation: The way in which we can get the minimum cost is described below:
+- Buy candies with costs 9 and 7
+- Take the candy with cost 6 for free
+- We buy candies with costs 5 and 2
+- Take the last remaining candy with cost 2 for free
+Hence, the minimum cost to buy all candies is 9 + 7 + 5 + 2 = 23.
+
+
+
+
+
+
+
+
+9) Minimum Sum of Four Digit Number After Splitting Digits
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int solve(int n){
+        int arr[]=new int[4];
+        int i=0;
+        while(n>0){
+            arr[i]=n%10;
+            n/=10;
+            i++;
+        }
+        Arrays.sort(arr);
+        int num1=(arr[0]*10)+arr[2];
+        int num2=(arr[1]*10)+arr[3];
+        return num1+num2;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        System.out.println(solve(n));
+    }
+}
+
+Example 1:
+
+Input: num = 2932
+Output: 52
+Explanation: Some possible pairs [new1, new2] are [29, 23], [223, 9], etc.
+The minimum sum can be obtained by the pair [29, 23]: 29 + 23 = 52.
+Example 2:
+
+Input: num = 4009
+Output: 13
+Explanation: Some possible pairs [new1, new2] are [0, 49], [490, 0], etc. 
+The minimum sum can be obtained by the pair [4, 9]: 4 + 9 = 13.
+
+
+
+
+
+
+
+10) Minimize Maximum Pair Sum in Array
+
+import java.util.*;
+import java.lang.*;
+
+public class Myclass {
+
+    public static int solve(int[] arr){
+        Arrays.sort(arr);
+        int max=0;
+        for(int i=0;i<arr.length;i++){
+            max=Math.max(max,arr[i]+arr[arr.length-i-1]);
+        }
+        return max;
+    }
+
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        System.out.println(solve(arr));
+    }
+}
+
+Example 1:
+
+Input: nums = [3,5,2,3]
+Output: 7
+Explanation: The elements can be paired up into pairs (3,3) and (5,2).
+The maximum pair sum is max(3+3, 5+2) = max(6, 7) = 7.
+Example 2:
+
+Input: nums = [3,5,4,2,4,6]
+Output: 8
+Explanation: The elements can be paired up into pairs (3,5), (4,4), and (6,2).
+The maximum pair sum is max(3+5, 4+4, 6+2) = max(8, 8, 8) = 8.
